@@ -1,0 +1,70 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<div class="ui input">
+  <input type="text" placeholder="Search...">
+</div>
+
+<button class="ui button primary">Submit</button>
+
+<h1>{{stock[0][1]}}</h1>
+<p>{{stock[0][2]}}</p>
+<p>{{stock[0][3]}}</p>
+<p>{{stock[0][4]}}</p>
+
+<h2>Technical Data </h2>
+{{technical_data}}
+<hr/>
+<h2>Analyst Recommendations </h2>
+{{recommendation_list}}
+<hr />
+<h2>News </h2>
+{{news}}
+<hr/>
+<table class="ui red table">
+
+  <thead>
+    <tr>
+      <th>Period</th>
+      <th>SMA</th>
+      <th>Indication</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>5</td>
+      <td>
+        {{sma5}}
+        </td>
+      <td>{{isma5}}</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>{{sma10}}</td>
+      <td>{{isma10}}</td>
+    </tr>
+    <tr>
+      <td>20</td>
+      <td>{{sma20}}</td>
+      <td>{{isma20}}</td>
+    </tr>
+    <tr>
+      <td>50</td>
+      <td>
+        {{sma50}}
+      </td>
+      <td>{{isma50}}</td>
+    </tr>
+    <tr>
+      <td>100</td>
+      <td>{{sma100}}</td>
+      <td>{{isma100}}</td>
+    </tr>
+    <tr>
+      <td>200</td>
+      <td>{{sma200}}</td>
+      <td>{{isma200}}</td>
+    </tr>
+  </tbody>
+</table>
+{% endblock %}

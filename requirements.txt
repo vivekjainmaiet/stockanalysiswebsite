@@ -1,0 +1,9 @@
+fastapi
+uvicorn
+jinja2
+yfinance
+pandas_ta
+datetime
+requests
+pandas
+numpy
