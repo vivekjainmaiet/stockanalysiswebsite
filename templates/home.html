@@ -4,8 +4,14 @@
 
 <form method="GET">
 <div class="ui fluid action input">
-  <input type="text" placeholder="Search..." name="search">
-  <button class="ui button" type="submit">Search</button>
+  <input list="brow" name="search">
+  <datalist id="brow">
+    <option value="">
+  {% for stock_name in stock_list %}
+    <option value="{{stock_name[2]}}">
+  {% endfor %}
+  </datalist>
+<button class="ui button" type="submit">Search</button>
 </div>
 </form>
 
@@ -22,8 +28,35 @@
 <span>Symbol : {{stock[2]}}</span>
 <span>Exchange : {{stock[3]}}</span>
 <span>Currency : {{stock[4]}}</span>
+<br/>
+<br />
 
-
+<!-- TradingView Widget BEGIN -->
+<div class="tradingview-widget-container">
+  <div id="tradingview_f5de4"></div>
+  <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener"
+      target="_blank"><span class="blue-text">AAPL Chart</span></a> by TradingView</div>
+  <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+  <script type="text/javascript">
+    new TradingView.widget(
+      {
+        "autosize": true,
+        "symbol": "{{ stock[3]}}:{{stock[2]}}",
+        "interval": "D",
+        "timezone": "Etc/UTC",
+        "theme": "light",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "hide_side_toolbar": false,
+        "allow_symbol_change": true,
+        "container_id": "tradingview_f5de4"
+      }
+    );
+  </script>
+</div>
+<!-- TradingView Widget END -->
 
 <h2>Analyst Recommendations </h2>
 <table class="ui red table">

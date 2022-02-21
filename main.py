@@ -37,6 +37,10 @@ def main(request:Request):
     stock_details = mycursor.fetchone()
     #print(stock_details)
 
+    query = "SELECT * FROM stocksdb.StocksList;"
+    mycursor.execute(query)
+    stock_list = mycursor.fetchall()
+
     query = "SELECT * FROM stocksdb.raw_news where ticker = 'IT';"
     mycursor.execute(query)
     news_list= mycursor.fetchall()
@@ -55,6 +59,7 @@ def main(request:Request):
         "home.html", {
             "request": request,
             "stock": stock_details,
+            "stock_list": stock_list,
             "news_list": news_list,
             "recommendation_list": recommendation_list,
             "technical_data": technical_data
