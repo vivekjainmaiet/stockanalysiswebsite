@@ -1,26 +1,81 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<div class="ui input">
-  <input type="text" placeholder="Search...">
+
+<form method="GET">
+<div class="ui fluid action input">
+  <input type="text" placeholder="Search..." name="search">
+  <button class="ui button" type="submit">Search</button>
 </div>
+</form>
 
-<button class="ui button primary">Submit</button>
+<h1>{{stock[1]}}</h1>
+<div class="ui labeled button" tabindex="0">
+  <div class="ui red button">
+    <i class="rupee sign"></i> Price
+  </div>
+  <a class="ui basic red left pointing label">
+    {{technical_data[6]}}
+  </a>
+</div>
+<br/>
+<span>Symbol : {{stock[2]}}</span>
+<span>Exchange : {{stock[3]}}</span>
+<span>Currency : {{stock[4]}}</span>
 
-<h1>{{stock[0][1]}}</h1>
-<p>{{stock[0][2]}}</p>
-<p>{{stock[0][3]}}</p>
-<p>{{stock[0][4]}}</p>
+
+
+<h2>Analyst Recommendations </h2>
+<table class="ui red table">
+  <thead>
+    <tr>
+      <th>Date</th>
+      <th>Action</th>
+      <th>Target</th>
+      <th>Analyst</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for recommendation in recommendation_list %}
+<tr>
+  <td>{{recommendation[1]}}</td>
+  <td>{{recommendation[6]}} </td>
+  <td>{{recommendation[7]}}</td>
+  <td>{{recommendation[8]}}</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+<h2>News </h2>
+<table class="ui red table">
+<thead>
+    <tr>
+      <th>Date</th>
+      <th>Title</th>
+      <th>Source</th>
+      <th>Link</th>
+    </tr>
+  </thead>
+  <tbody>
+{% for news in news_list %}
+<tr>
+      <td>{{news[1]}}</td>
+      <td>{{news[2]}} </td>
+      <td>{{news[4]}}</td>
+      {% if news[5] == 'Moneycontrol.com' %}
+      <td><a href="https://www.moneycontrol.com{{news[5]}}" target="_blank">More details</a></td>
+      {% else %}
+      <td><a href="{{news[5]}}" target="_blank">More details</a></td>
+      {% endif %}
+
+</tr>
+
+{% endfor %}
+</tbody>
+</table>
 
 <h2>Technical Data </h2>
-{{technical_data}}
-<hr/>
-<h2>Analyst Recommendations </h2>
-{{recommendation_list}}
-<hr />
-<h2>News </h2>
-{{news}}
-<hr/>
+
 <table class="ui red table">
 
   <thead>
@@ -31,40 +86,20 @@
     </tr>
   </thead>
   <tbody>
+    {% for index, value in [(12,8),(21,9),(26,10),(34,11),(55,12),(99,13),(200,14)] %}
     <tr>
-      <td>5</td>
+      <td>{{index}}</td>
       <td>
-        {{sma5}}
-        </td>
-      <td>{{isma5}}</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>{{sma10}}</td>
-      <td>{{isma10}}</td>
-    </tr>
-    <tr>
-      <td>20</td>
-      <td>{{sma20}}</td>
-      <td>{{isma20}}</td>
-    </tr>
-    <tr>
-      <td>50</td>
-      <td>
-        {{sma50}}
+        {{technical_data[value]}}
       </td>
-      <td>{{isma50}}</td>
+      {% if technical_data[6] > technical_data[value] %}
+      <td>Bullish</td>
+      {% else %}
+      <td>Bearish</td>
+      {% endif %}
     </tr>
-    <tr>
-      <td>100</td>
-      <td>{{sma100}}</td>
-      <td>{{isma100}}</td>
-    </tr>
-    <tr>
-      <td>200</td>
-      <td>{{sma200}}</td>
-      <td>{{isma200}}</td>
-    </tr>
+    {% endfor %}
   </tbody>
 </table>
+
 {% endblock %}
