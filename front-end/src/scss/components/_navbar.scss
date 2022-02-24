@@ -1,0 +1,65 @@
+@mixin getNavbarStyles{
+  .navbar{
+    display: flex;
+    justify-content: space-between;
+    .container{
+      display: flex;
+
+      button {
+        height: 99%;
+        color: white;
+        background-color: #0d88e6;
+        padding: 0.2rem 1.2rem;
+        border: none;
+        border-radius: 1.5rem;
+        font-size: 0.9rem;
+        font-weight: 600;
+        cursor: pointer;
+      }
+
+        button:active {
+          background-color: #1C4E80;
+        }
+
+
+      .search{
+        background-color: white;
+        display: flex;
+        width:30rem;
+        margin-right: 0.5rem;
+        justify-content: left;
+        align-items: center;
+        border-radius: 2rem;
+        padding: 0.5rem 1rem;
+        color: #0d88e6;
+        gap: 1rem;
+        font-size: 1.5rem;
+        input{
+          border:none;
+          color: #0d88e6;
+          background-color:white;
+          &:focus{
+            outline:none;
+          }
+        }
+      }
+    }
+    .profile{
+      display:flex;
+      align-items: center;
+      gap:1rem;
+      margin-left: 1rem;
+      .bell {
+        font-size: 1.4rem;
+        color: #0d88e6;
+      }
+      .image{
+        img{
+          height: 3rem;
+          border-radius: 3rem;
+        }
+      }
+    }
+  }
+
+}

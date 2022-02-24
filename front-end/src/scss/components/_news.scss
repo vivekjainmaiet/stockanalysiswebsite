@@ -1,0 +1,16 @@
+@mixin getNewsStyles(){
+
+.news{
+
+      height: 95%;
+      background-color: #0d88e6;
+      border-radius: 1rem;
+    }
+
+    img {
+      width: 100%;
+      height: 100%;
+      border-radius: 1rem;
+    }
+
+}

@@ -1,0 +1,39 @@
+.dashboard{
+margin-left: 15rem;
+padding: 2rem;
+height: 100%;
+color:white;
+@include getNavbarStyles();
+
+.grid{
+  margin-top: 3rem;
+  height: 100%;
+  .one{
+    margin:2rem 0;
+    @include getMilestonesStyles();
+
+  }
+  .two{
+    height: 100%;
+    display:grid;
+    grid-template-columns: 0.7fr 1.5fr;
+    gap: 1rem;
+    @include getTwitterStyles();
+    @include getLstmStyles();
+
+  }
+
+  .three {
+    margin-top: 1.2rem;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 0.7fr 1.5fr;
+    gap: 1rem;
+    @include getNewsStyles();
+    @include getIndicatorsStyles();
+
+  }
+}
+
+
+}
