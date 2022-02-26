@@ -72,30 +72,3 @@ if __name__ == "__main__":
     mysql=MySQLDB()
     df=mysql.getData_df("SELECT * FROM stocksdb.StocksList;")
     print(df)
-    query = ("INSERT INTO stocksdb.StocksList ( StockName,StockCode,exchange) "
-             "VALUES (%s, %s, %s)")
-    #insert single value from list of dictionary
-    #data=('Tata Motors Ltd','TATAMOTORS','NSE')
-    #data = {'StockName': 'Tata Motors Ltd','StockCode':'TATAMOTORS','exchange':'NSE'}
-    #mysql.InsertUpdateData(query, data)
-    queryDic = ("INSERT INTO stocksdb.StocksList ( StockName,StockCode,exchange) "
-             "VALUES (%(StockName)s, %(StockCode)s, %(exchange)s)")
-    #data=('Tata Motors Ltd','TATAMOTORS','NSE')
-
-
-    #save the dataframe to table
-    data = pd.DataFrame([('Tata Motors Ltd', 'TATAMOTORS', 'NSE'),
-           ('Microsoft', 'Micro', 'NASDAQ')])
-    mysql.SaveDFToTable(query, data)
-
-
-    #save data from multple value from dictionary to table
-    dataDictstocks = {
-        'StockName': ['Tata Motors Ltd1','Microsoft1'],
-        'StockCode': ['TATAMOTORS1','Micro1'],
-        'exchange': ['NSE','NASDAQ']
-    }
-    #mysql.SaveDictionayToTable(query, dataDictstocks)
-
-
-    #mysql.ExecuteDDLStatement("CREATE TABLE stocksdb.tet ( ID INT NOT NULL, Date date NOT NULL)")
