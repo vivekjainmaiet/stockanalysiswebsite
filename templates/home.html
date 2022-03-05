@@ -1,47 +1,151 @@
 {% extends "layout.html" %}
 
 {% block content %}
+<script type="text/javascript">
+//var json = json.parse(list_revenue_chart);
+document.write("{{list_revenue_chart}}")
+//document.write(input);
+</script>
+<script type="text/javascript">
+  google.charts.load('current', { packages: ['corechart', 'bar'] });
+  google.charts.setOnLoadCallback(drawBasic);
+  function drawBasic() {
+    const data = [];
+    data.push(['Financial Year', 'Revenue']);
+    data.push(['FY 2017', 122187.0]);
+    data.push(['FY 2018', 126746.0]);
+    data.push(['FY 2019', 150774.0]);
+    data.push(['FY 2020', 161541.0]);
+    data.push(['FY 2021', 167311.0]);
 
+    //d_a = [['Financial Year', 'Revenue'], ['FY 2017', 122187.0], ['FY 2018', 126746.0], ['FY 2019', 150774.0], ['FY 2020', 161541.0], ['FY 2021', 167311.0]];
+    var chart_data = new google.visualization.arrayToDataTable(data);
+    var options = {
+      title: 'Revenue Forecast',
+      chartArea: { width: '50%' },
+      hAxis: {
+        title: 'Revenue',
+        minValue: 0
+      },
+      vAxis: {
+        title: 'Financial Year'
+      }
+    };
+
+    var chart = new google.visualization.BarChart(document.getElementById('chart_div'));
+
+    chart.draw(chart_data, options);
+  }
+</script>
 <form method="GET">
 <div class="ui fluid action input">
   <input list="brow" name="search">
   <datalist id="brow">
     <option value="">
   {% for stock_name in stock_list %}
-    <option value="{{stock_name[2]}}">
+    <option value="{{stock_name[1]}}">
   {% endfor %}
   </datalist>
 <button class="ui button" type="submit">Search</button>
 </div>
 </form>
-
-<h1>{{stock[1]}}</h1>
+<h1>{{stock['StockName']}}</h1>
 <div class="ui labeled button" tabindex="0">
   <div class="ui red button">
     <i class="rupee sign"></i> Price
   </div>
   <a class="ui basic red left pointing label">
-    {{technical_data[6]}}
+    {{technical_data['Close']}}
   </a>
 </div>
 <br/>
-<span>Symbol : {{stock[2]}}</span>
-<span>Exchange : {{stock[3]}}</span>
-<span>Currency : {{stock[4]}}</span>
+<span>Symbol : {{stock['StockCode']}}</span>
+<span>Exchange : {{stock['exchange']}}</span>
+<span>Currency : {{stock['Currency']}}</span>
 <br/>
 <br />
 
+<script type="text/javascript">
+  google.charts.load('current', { packages: ['corechart', 'line'] });
+    google.charts.setOnLoadCallback(drawBasic);
+
+    function drawBasic() {
+
+      var data = new google.visualization.DataTable();
+      data.addColumn('number', 'X');
+      data.addColumn('number', 'Dogs');
+
+      data.addRows([
+        [0, 0], [1, 10], [2, 23], [3, 17], [4, 18], [5, 9],
+        [6, 11], [7, 27], [8, 33], [9, 40], [10, 32], [11, 35],
+        [12, 30], [13, 40], [14, 42], [15, 47], [16, 44], [17, 48],
+        [18, 52], [19, 54], [20, 42], [21, 55], [22, 56], [23, 57],
+        [24, 60], [25, 50], [26, 52], [27, 51], [28, 49], [29, 53],
+        [30, 55], [31, 60], [32, 61], [33, 59], [34, 62], [35, 65],
+        [36, 62], [37, 58], [38, 55], [39, 61], [40, 64], [41, 65],
+        [42, 63], [43, 66], [44, 67], [45, 69], [46, 69], [47, 70],
+        [48, 72], [49, 68], [50, 66], [51, 65], [52, 67], [53, 70],
+        [54, 71], [55, 72], [56, 73], [57, 75], [58, 70], [59, 68],
+        [60, 64], [61, 60], [62, 65], [63, 67], [64, 68], [65, 69],
+        [66, 70], [67, 72], [68, 75], [69, 80]
+      ]);
+
+      var options = {
+        hAxis: {
+          title: 'Time'
+        },
+        vAxis: {
+          title: 'Popularity'
+        }
+      };
+
+      var chart = new google.visualization.LineChart(document.getElementById('linechart_div'));
+
+      chart.draw(data, options);
+    }
+</script>
+
+<script type="text/javascript">
+  google.charts.load('current', { 'packages': ['corechart'] });
+  google.charts.setOnLoadCallback(drawChart);
+
+  function drawChart() {
+
+    var data = google.visualization.arrayToDataTable([
+      ['Task', 'Hours per Day'],
+      ['Work', 11],
+      ['Eat', 2],
+      ['Commute', 2],
+      ['Watch TV', 2],
+      ['Sleep', 7]
+    ]);
+
+    var options = {
+      title: 'My Daily Activities'
+    };
+
+    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+
+    chart.draw(data, options);
+  }
+</script>
+
+<div id="linechart_div" style="width: 900px; height: 500px;"></div>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<div id="piechart" style="width: 900px; height: 500px;"></div>
+
 <!-- TradingView Widget BEGIN -->
 <div class="tradingview-widget-container">
-  <div id="tradingview_f5de4"></div>
+  <div id="tradingview_21e54"></div>
   <div class="tradingview-widget-copyright"><a href="https://www.tradingview.com/symbols/NASDAQ-AAPL/" rel="noopener"
-      target="_blank"><span class="blue-text">AAPL Chart</span></a> by TradingView</div>
+      target="_blank"><span class="blue-text">{{stock[1]}}</span></a> by TradingView</div>
   <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
   <script type="text/javascript">
     new TradingView.widget(
       {
-        "autosize": true,
-        "symbol": "{{ stock[3]}}:{{stock[2]}}",
+        "width": 1080,
+        "height": 610,
+        "symbol": "{{ stock['exchange']}}:{{stock['StockCode']}}",
         "interval": "D",
         "timezone": "Etc/UTC",
         "theme": "light",
@@ -49,15 +153,13 @@
         "locale": "en",
         "toolbar_bg": "#f1f3f6",
         "enable_publishing": false,
-        "hide_side_toolbar": false,
         "allow_symbol_change": true,
-        "container_id": "tradingview_f5de4"
+        "container_id": "tradingview_21e54"
       }
     );
   </script>
 </div>
 <!-- TradingView Widget END -->
-
 <h2>Analyst Recommendations </h2>
 <table class="ui red table">
   <thead>
@@ -71,10 +173,10 @@
   <tbody>
 {% for recommendation in recommendation_list %}
 <tr>
-  <td>{{recommendation[1]}}</td>
-  <td>{{recommendation[6]}} </td>
-  <td>{{recommendation[7]}}</td>
-  <td>{{recommendation[8]}}</td>
+  <td>{{recommendation['date']}}</td>
+  <td>{{recommendation['advice']}} </td>
+  <td>{{recommendation['target']}}</td>
+  <td>{{recommendation['analyst']}}</td>
 </tr>
 {% endfor %}
 </tbody>
@@ -92,13 +194,13 @@
   <tbody>
 {% for news in news_list %}
 <tr>
-      <td>{{news[1]}}</td>
-      <td>{{news[2]}} </td>
-      <td>{{news[4]}}</td>
+      <td>{{news['date']}}</td>
+      <td>{{news['title']}} </td>
+      <td>{{news['source']}}</td>
       {% if news[5] == 'Moneycontrol.com' %}
       <td><a href="https://www.moneycontrol.com{{news[5]}}" target="_blank">More details</a></td>
       {% else %}
-      <td><a href="{{news[5]}}" target="_blank">More details</a></td>
+      <td><a href="{{news['url']}}" target="_blank">More details</a></td>
       {% endif %}
 
 </tr>
@@ -119,13 +221,13 @@
     </tr>
   </thead>
   <tbody>
-    {% for index, value in [(12,8),(21,9),(26,10),(34,11),(55,12),(99,13),(200,14)] %}
+    {% for index, value in [(12,'ema12'),(21,'ema21'),(26,'ema26'),(34,'ema34'),(55,'ema55'),(99,'ema99'),(200,'ema200')] %}
     <tr>
       <td>{{index}}</td>
       <td>
         {{technical_data[value]}}
       </td>
-      {% if technical_data[6] > technical_data[value] %}
+      {% if technical_data['Close'] > technical_data[value] %}
       <td>Bullish</td>
       {% else %}
       <td>Bearish</td>
@@ -134,5 +236,35 @@
     {% endfor %}
   </tbody>
 </table>
+
+<div class="ui cards">
+  <div class="card">
+    <div class="content">
+      <div class="header">Elliot Fu</div>
+      <div class="meta">Friend</div>
+      <div class="description">
+        Elliot Fu is a film-maker from New York.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="content">
+      <div class="header">Veronika Ossi</div>
+      <div class="meta">Friend</div>
+      <div class="description">
+        Veronika Ossi is a set designer living in New York who enjoys kittens, music, and partying.
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="content">
+      <div class="header">Jenny Hess</div>
+      <div class="meta">Friend</div>
+      <div class="description">
+        Jenny is a student studying Media Management at the New School
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock %}

@@ -1,5 +1,6 @@
 import React from "react";
 import { LineChart, Line, CartesianGrid, XAxis, YAxis, Tooltip } from 'recharts';
+
 const data = [{name: '400', uv: 400}, {name: '600', uv: 600},{name: '800', uv: 800},];
 
 export default function Graph() {
